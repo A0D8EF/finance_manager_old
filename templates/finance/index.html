@@ -1,0 +1,36 @@
+{% extends "finance/base.html" %}
+
+{% block main %}
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>
+            <span>収入：</span>
+            <input type="checkbox" name="income">
+        </label>
+        <input type="number" name="amount">
+        <input type="date" name="use_date">
+        <textarea name="description"></textarea>
+
+        <input type="submit" value="送信">
+    </form>
+
+    {% for balance in balances %}
+    <div class="border">
+        <div>{{ balance.dt              }}</div>
+        <div>{{ balance.user.username   }}</div>
+        <div>{{ balance.income          }}</div>
+        <div>{{ balance.amount          }}</div>
+        <div>{{ balance.use_date        }}</div>
+        <div>{{ balance.description     }}</div>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+
+
+ = models.ForeignKey(User, verbose_name="投稿者", on_delete=models.CASCADE)
+ = models.BooleanField(verbose_name="収入")
+ = models.PositiveIntegerField(verbose_name="金額")
+ = models.DateField(verbose_name="利用日")
+ = models.CharField(verbose_name="利用内容", max_length=100, null=True, blank=True)
